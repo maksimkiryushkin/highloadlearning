@@ -8,7 +8,7 @@ Routing: `/routes/routes.php`
 Controllers: `/app/Http/Controllers`  
 DB migrations: `/database/migrations`
 
-It's better to open project in PhpStorm and CTRL+Click everything interesting.
+It's better to open project in PhpStorm and CTRL+Click everything interesting
 
 #### To start...
 
