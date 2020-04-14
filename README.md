@@ -21,3 +21,7 @@ It's better to open project in PhpStorm and CTRL+Click everything interesting
 > php artisan migrate
 > php artisan optimize 
 ```
+
+#### Helpful docs
+
+- https://getbootstrap.com/docs/4.0/getting-started/introduction/ – frontend
