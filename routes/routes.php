@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-	return view('base');
-});
+// Есть возможность регистрации, создавать персональные страницы, возможность подружиться, список друзей.
+
+//Auth
+//Main
+//Friends
+
+Route::get('/', 'MainController@index');
+
+//Route::get('/', function () {
+//	return view('base');
+//});

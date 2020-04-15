@@ -24,4 +24,5 @@ It's better to open project in PhpStorm and CTRL+Click everything interesting
 
 #### Helpful docs
 
+- https://laravel.com/docs/7.x – backend
 - https://getbootstrap.com/docs/4.0/getting-started/introduction/ – frontend
