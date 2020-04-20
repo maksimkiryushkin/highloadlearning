@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 //Main
 //Friends
 
-Route::get('/', 'MainController@index');
+Route::group(['middleware' => ['web']], function () {
+	Route::get('/welcome', 'AuthController@welcome')->name('welcome');
+	Route::get('/login', 'AuthController@login');
+	Route::get('/logout', 'AuthController@logout');
 
-//Route::get('/', function () {
-//	return view('base');
-//});
+	Route::get('/', 'MainController@index')->name('home');
+});
