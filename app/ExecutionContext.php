@@ -10,7 +10,7 @@ class ExecutionContext {
 		if (static::$user === null) {
 			$userId = request()->session()->get('user');
 			// load model here
-			//static::$user = User::find($userId) ?: new User();
+			//static::$user = User::find($userId);
 			static::$user = $userId;
 		}
 		return static::$user;

@@ -14,5 +14,12 @@ body {
 }
 
 #page-holder {
+	position: relative;
 	z-index: 100;
+	min-height: 100vh;
+}
+
+.content-box-colors {
+	background-color: rgba(243, 246, 249, 0.95);
+	color: #191919;
 }

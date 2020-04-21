@@ -11,11 +11,40 @@
 
 <div id="page-bg"></div>
 
-<div id="page-holder" class="pt-3 pb-3">
-	<div class="container">
+<div id="page-holder" class="pt-3 pb-3 d-flex flex-row">
+	<div class="container align-self-stretch d-flex flex-row">
 
-		@yield('content')
-		{{--<div class="rounded" style="background-color: green; opacity: 0.4; height: 2000px;"></div>--}}
+		@yield('layout')
+
+		{{-- по высоте: от верха экрана на всю высоту, по ширине: 100% --}}
+		{{--<div class="align-self-stretch w-100">--}}
+		{{--	<div class="rounded px-3 py-3 content-box-colors" style="min-height: 100%;">--}}
+		{{--		Контент обычного вида на странице на всю высоту контейнера--}}
+		{{--	</div>--}}
+		{{--</div>--}}
+
+		{{-- по высоте: центр экрана, по ширине: контент --}}
+		{{--<div class="align-self-center w-100 d-flex flex-column">--}}
+		{{--	<div class="align-self-center">--}}
+		{{--		<div class="rounded px-3 py-3 content-box-colors">--}}
+		{{--			контент по центру экрана, по типу модалки--}}
+		{{--		</div>--}}
+		{{--	</div>--}}
+		{{--</div>--}}
+
+		{{-- по высоте: верх экрана, по ширине: 100% --}}
+		{{--<div class="align-self-start w-100">--}}
+		{{--	<div class="rounded px-3 py-3 content-box-colors">--}}
+		{{--		контент обычного вида от верха контейнера--}}
+		{{--	</div>--}}
+		{{--</div>--}}
+
+		{{-- по высоте: центр экрана, по ширине: 100% --}}
+		{{--<div class="align-self-center w-100">--}}
+		{{--	<div class="rounded px-3 py-3 content-box-colors">--}}
+		{{--		контент по центру экрана, но на полную ширину контейнера--}}
+		{{--	</div>--}}
+		{{--</div>--}}
 
 	</div>
 </div>

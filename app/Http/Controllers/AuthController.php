@@ -11,7 +11,7 @@ class AuthController extends Controller {
 			return redirect(route('home'));
 		}
 
-		return view('base');
+		return view('welcome');
 	}
 
 	public function login() {
