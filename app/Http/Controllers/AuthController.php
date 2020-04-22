@@ -10,8 +10,11 @@ class AuthController extends Controller {
 		if (ExecutionContext::getUser()) {
 			return redirect(route('home'));
 		}
-
 		return view('welcome');
+	}
+
+	public function register() {
+		return view('register');
 	}
 
 	public function login() {

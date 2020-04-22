@@ -10,6 +10,7 @@ class RedirectIfGuest {
 
 	protected $guestPages = [
 		'welcome',
+		'register',
 		'login',
 		'logout',
 	];

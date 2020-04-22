@@ -21,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['web']], function () {
 	Route::get('/welcome', 'AuthController@welcome')->name('welcome');
-	Route::get('/login', 'AuthController@login');
+	Route::get('/register', 'AuthController@register');
+	Route::post('/register', 'AuthController@doRegister');
+	Route::post('/login', 'AuthController@login');
 	Route::get('/logout', 'AuthController@logout');
 
 	Route::get('/', 'MainController@index')->name('home');
