@@ -12,8 +12,8 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div class="navbar-nav mr-auto">
-						<a class="nav-item nav-link active" href="/">Моя страница</a>
-						<a class="nav-item nav-link" href="/friends">Друзья</a>
+						<a class="nav-item nav-link @if(\App\ExecutionContext::navActive() == 'mypage') active @endif" href="/">Моя страница</a>
+						<a class="nav-item nav-link @if(\App\ExecutionContext::navActive() == 'friends') active @endif" href="/friends">Друзья</a>
 					</div>
 					<ul class="navbar-nav">
 						<li class="nav-item dropdown">

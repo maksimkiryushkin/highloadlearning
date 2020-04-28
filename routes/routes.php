@@ -25,4 +25,5 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('/logout', 'AuthController@logout');
 
 	Route::get('/', 'MainController@index')->name('home');
+	Route::get('/friends', 'FriendsController@index');
 });
