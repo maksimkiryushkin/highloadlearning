@@ -13,16 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Есть возможность регистрации, создавать персональные страницы, возможность подружиться, список друзей.
-
-//Auth
-//Main
-//Friends
-
 Route::group(['middleware' => ['web']], function () {
 	Route::get('/welcome', 'AuthController@welcome')->name('welcome');
+
 	Route::get('/register', 'AuthController@register');
 	Route::post('/register', 'AuthController@doRegister');
+	Route::get('/profile', 'AuthController@profile');
+	Route::post('/profile', 'AuthController@updateProfile');
+
 	Route::post('/login', 'AuthController@login');
 	Route::get('/logout', 'AuthController@logout');
 

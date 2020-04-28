@@ -17,14 +17,18 @@ class AuthController extends Controller {
 		return view('register');
 	}
 
+	public function profile() {
+		return view('profile');
+	}
+
 	public function login() {
 		dump('login');
 		ExecutionContext::setSessionUser(1);
 	}
 
 	public function logout() {
-		dump('logout');
 		ExecutionContext::dropSessionUser();
+		return redirect(route('welcome'));
 	}
 
 }
