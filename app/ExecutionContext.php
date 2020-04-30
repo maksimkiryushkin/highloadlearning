@@ -21,8 +21,12 @@ class ExecutionContext {
 		if (static::$navActive === null) {
 			if (request()->is(['/'])) {
 				static::$navActive = 'mypage';
-			} elseif (request()->is(['friends', 'friends/*'])) {
+
+			} elseif (request()->is(['friends', 'friend/*'])) {
 				static::$navActive = 'friends';
+
+			} else {
+				static::$navActive = 'none';
 			}
 		}
 		return static::$navActive;

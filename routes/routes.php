@@ -26,4 +26,6 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('/', 'MainController@index')->name('home');
 	Route::get('/friends', 'FriendsController@index');
+	Route::get('/friend/{id}', 'FriendsController@friend');
+	Route::get('/person/{id}', 'FriendsController@person');
 });

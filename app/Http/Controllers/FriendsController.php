@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 class FriendsController extends Controller {
 
 	public function index() {
-		//$user = ExecutionContext::getUser();
-		$user = null;
-		return view('mypage', ['user' => $user]);
+		return view('friends');
+	}
+
+	public function friend($id) {
+		return view('person', ['isFriend' => true]);
+	}
+
+	public function person($id) {
+		return view('person', ['isFriend' => false]);
 	}
 
 }
