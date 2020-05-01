@@ -1,7 +1,7 @@
-@extends('layouts.layout-full-page')
+@extends('layouts.layout-full-page-nav')
 @section('content')
 
-	<h2 class="mb-4">Регистрация</h2>
+	<h3 class="mb-4">Ваш профиль</h3>
 	<form>
 		<div class="row">
 			<div class="col-sm-12 col-md-11 col-lg-8 col-xl-7">
@@ -9,7 +9,7 @@
 				<div class="form-group row">
 					<label for="register-name" class="col-sm-3 col-form-label">Имя</label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control" id="register-name" autofocus placeholder="Ваше имя"/>
+						<input type="text" class="form-control" id="register-name" placeholder="Ваше имя"/>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -60,7 +60,7 @@
 
 				<div class="form-group row">
 					<div class="offset-sm-3 col-sm-9">
-						<button type="submit" id="register-do" class="btn btn-success">Зарегистрироваться</button>
+						<button type="submit" id="register-do" class="btn btn-success">Сохранить изменения</button>
 					</div>
 				</div>
 

@@ -1,4 +1,4 @@
-@extends('layout-top-middle-modal')
+@extends('layouts.layout-top-middle-modal')
 @section('content')
 
 	<form>

@@ -1,4 +1,4 @@
-@extends('base')
+@extends('layouts.base')
 @section('layout')
 
 	{{-- по высоте: от верха экрана на всю высоту, по ширине: 100% --}}
