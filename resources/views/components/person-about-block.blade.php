@@ -1,6 +1,6 @@
 <div class="d-flex flex-row align-items-start flex-wrap">
     <div class="mb-4">
-        <img class="d-none d-xl-block align-self-start rounded img-thumbnail mr-4" style="max-height: 400px; max-width: 450px;" src="https://avatars.mds.yandex.net/get-pdb/1907041/41decff0-0bb9-4f1f-9d4a-56a9c70304f0/s1200?webp=false" />
+        <img class="d-none d-xl-block align-self-start rounded img-thumbnail mr-4" style="max-height: 400px; max-width: 450px;" src="/img/anonymous_female.png" />
         <img class="d-none d-lg-block d-xl-none align-self-start rounded img-thumbnail mr-4" style="max-height: 350px; max-width: 380px;" src="https://avatars.mds.yandex.net/get-pdb/1907041/41decff0-0bb9-4f1f-9d4a-56a9c70304f0/s1200?webp=false" />
         <img class="d-none d-md-block d-lg-none align-self-start rounded img-thumbnail mr-4" style="max-height: 300px; max-width: 320px;" src="https://avatars.mds.yandex.net/get-pdb/1907041/41decff0-0bb9-4f1f-9d4a-56a9c70304f0/s1200?webp=false" />
         <img class="d-none d-sm-block d-md-none align-self-start rounded img-thumbnail mr-4" style="max-height: 250px; max-width: 220px;" src="https://avatars.mds.yandex.net/get-pdb/1907041/41decff0-0bb9-4f1f-9d4a-56a9c70304f0/s1200?webp=false" />
