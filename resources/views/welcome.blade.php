@@ -3,7 +3,7 @@
 
 	<form>
 		<div class="form-group">
-			<input type="email" class="form-control" name="login" id="auth-login" autofocus placeholder="Телефон или email" />
+			<input type="email" class="form-control" name="login" id="auth-login" autofocus placeholder="Email (логин)" />
 		</div>
 		<div class="form-group">
 			<input type="password" class="form-control" name="password" id="auth-password" placeholder="Пароль" />

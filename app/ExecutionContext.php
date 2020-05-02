@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Repositories\UserRepository;
+
 class ExecutionContext {
 
 	protected static $user = null;
@@ -9,10 +11,8 @@ class ExecutionContext {
 
 	public static function getUser() {
 		if (static::$user === null) {
-			$userId = request()->session()->get('user');
-			// load model here
-			//static::$user = User::find($userId);
-			static::$user = $userId;
+			$userId = request()->session()->get('userId');
+			static::$user = (new UserRepository())->find($userId);
 		}
 		return static::$user;
 	}
@@ -33,12 +33,12 @@ class ExecutionContext {
 	}
 
 	public static function setSessionUser($user) {
-		$userId = (int)$user;
-		request()->session()->put('user', $userId);
+		$userId = ($user instanceof User) ? $user->id : (int)$user;
+		request()->session()->put('userId', $userId);
 	}
 
 	public static function dropSessionUser() {
-		request()->session()->forget('user');
+		request()->session()->forget('userId');
 	}
 
 }

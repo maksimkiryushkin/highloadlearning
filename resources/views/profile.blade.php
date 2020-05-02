@@ -54,7 +54,20 @@
 				<div class="form-group row">
 					<label for="register-interests" class="col-sm-3 col-form-label">Интересы</label>
 					<div class="col-sm-9">
-						<textarea class="form-control" id="register-interests" rows="4" placeholder="Расскажите о себе и своих увлечениях"></textarea>
+						<textarea class="form-control" id="register-interests" rows="7" placeholder="Расскажите о себе и своих увлечениях"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="register-email" class="col-sm-3 col-form-label">Ваш email</label>
+					<div class="col-sm-7">
+						<input type="text" class="form-control" id="register-email" autocomplete="off" placeholder="Email (будет логином)"/>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="register-password" class="col-sm-3 col-form-label">Новый пароль</label>
+					<div class="col-sm-5">
+						<input type="password" class="form-control" id="register-password" autocomplete="off" placeholder="Новый пароль"/>
 					</div>
 				</div>
 
