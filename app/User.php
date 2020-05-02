@@ -13,10 +13,26 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $email
  * @property string $password
  * @property string $gender
- * @property string $bithday
+ * @property string $birthday
  * @property int $city_id
  * @property string $interests
  */
 class User extends Model {
+
+	public $fillable = [
+		'first_name',
+		'last_name',
+		'email',
+		'password',
+		'gender',
+		'birthday',
+		'city_id',
+		'interests',
+	];
+
+	public function beforeSave() {
+		$this->email = mb_strtolower(trim($this->email));
+		return true;
+	}
 
 }

@@ -8,7 +8,7 @@ interface Repository {
 
 	public function find($id);
 
-	public function search($conditions);
+	public function search($conditions = [], $order = null, $limit = null, $offset = null);
 
 	public function save($entity);
 

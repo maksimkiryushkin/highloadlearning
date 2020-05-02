@@ -35,25 +35,93 @@ function showError(msg) {
 	});
 }
 
+// showInfo('[info] Некая информация без заголовка');
+// showSuccess('[success fast] Почти та же информация', 1500);
+// showError('[error] Ошибка с крестиком, и без автоскрытия');
+// showSuccess('[success] Некая информация без заголовка');
+
+function blockElem($el) {
+	if ($el.hasClass('running')) return false;
+	$el.addClass('running');
+	return true;
+}
+
+function unblockElem($el) {
+	$el.removeClass('running');
+}
+
+function simpleSuccessHandle(D) {
+	if (D.status !== 'success') {
+		showError(D.reason);
+		return;
+	}
+	if (D.message) {
+		showSuccess(D.message);
+	}
+	if (D.url) {
+		if (D.message) {
+			setTimeout(function () {
+				window.location.href = D.url;
+			}, 2800);
+		} else {
+			window.location.href = D.url;
+		}
+	}
+}
+
 $(function () {
 	const $pageBg = $('#page-bg');
 	$(window).on('scroll resize', function () {
 		const H = $(document).height() - $(window).height();
 		const h = $pageBg.height() - $(window).height() - 1;
 		const y = h / H * $(window).scrollTop();
-		//console.log($(window).scrollTop(), y);
 		$pageBg.css('top', '-' + y + 'px');
 	});
 
 	$('#register-do').click(function (e) {
 		e.stopPropagation();
 		e.preventDefault();
-		this.blur();
+		var $btn = $(this);
+		$btn.blur();
+		if (!blockElem($btn)) return false;
 
-		// showInfo('[info] Некая информация без заголовка');
-		// showSuccess('[success fast] Почти та же информация, но уже с незаголовком', 1500);
-		// showError('[error] Ошибка с крестиком, и без автоскрытия');
-		showSuccess('[success] Некая информация без заголовка');
+		var $form = $('#register-form');
+
+		// особая проверка на пустоту пароля, потому что сервер этого сделать не сможет
+		if ($form.find('#password').val().length <= 0) {
+			unblockElem($btn);
+			showError('Пожалуйста, задайте не пустой Пароль');
+			return false;
+		}
+
+		var data = {
+			name: $form.find('#name').val(),
+			lastname: $form.find('#lastname').val(),
+			birthday: $form.find('#birthday').val(),
+			gender: $form.find('input[name="gender"]:checked').val() || '',
+			city: $form.find('#city').val(),
+			interests: $form.find('#interests').val(),
+			email: $form.find('#email').val(),
+			password: MD5($form.find('#password').val()),
+		};
+
+		$.ajax({
+			async: true,	// не ждем завершения
+			type: $form.attr('method'),
+			url: $form.attr('action'),
+			dataType: 'json',
+			data: data,
+			cache: false,
+			global: false,
+			success: function (D) {
+				unblockElem($btn);
+				simpleSuccessHandle(D);
+			},// success()
+			error: function (jqXHR, textStatus, errorThrown) {
+				unblockElem($btn);
+				showError(errorThrown.length ? errorThrown : 'Возникла ошибка, попробуйте повторить операцию позже!');
+			}// error()
+		});
 
 		return false;
 	});
