@@ -14,8 +14,8 @@ class UserRepository implements Repository {
 	 * @return User|null
 	 */
 	public function find($id) {
-		// TODO: Implement find() method.
-		return null;
+		$items = $this->search(['id' => (int)$id], null, 1);
+		return $items->isNotEmpty() ? $items->first() : null;
 	}
 
 	/**
@@ -23,7 +23,7 @@ class UserRepository implements Repository {
 	 * @return User|null
 	 */
 	public function findByEmail($email) {
-		$items = $this->search(['email' => mb_strtolower(trim($email))]);
+		$items = $this->search(['email' => mb_strtolower(trim($email))], null, 1);
 		return $items->isNotEmpty() ? $items->first() : null;
 	}
 

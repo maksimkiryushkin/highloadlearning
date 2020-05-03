@@ -73,7 +73,7 @@
 
 				<div class="form-group row">
 					<div class="offset-sm-3 col-sm-9">
-						<button type="submit" id="register-do" class="btn btn-success ld-ext-right">
+						<button type="submit" id="go-register" class="btn btn-success ld-ext-right">
 							Зарегистрироваться
 							<div class="ld ld-ring ld-spin-fast"></div>
 						</button>

@@ -2,7 +2,7 @@ toastr.options = {
 	"closeButton": false,
 	"debug": false,
 	"newestOnTop": false,
-	"progressBar": true,
+	"progressBar": false,
 	"positionClass": "toast-top-center",
 	"preventDuplicates": false,
 	"onclick": null,
@@ -21,9 +21,10 @@ function showInfo(msg, delay) {
 	toastr.info(msg, '', { timeOut: delay });
 }
 
-function showSuccess(msg, delay) {
+function showSuccess(msg, delay, showProgress) {
 	delay = delay || 3000;
-	toastr.success(msg, '', { timeOut: delay });
+	showProgress = showProgress || false;
+	toastr.success(msg, '', { timeOut: delay, progressBar: !!showProgress });
 }
 
 function showError(msg) {
@@ -50,19 +51,21 @@ function unblockElem($el) {
 	$el.removeClass('running');
 }
 
-function simpleSuccessHandle(D) {
+function simpleSuccessHandle(D, delay, showProgress) {
+	delay = delay || 2800;
+	showProgress = showProgress || false;
 	if (D.status !== 'success') {
 		showError(D.reason);
 		return;
 	}
 	if (D.message) {
-		showSuccess(D.message);
+		showSuccess(D.message, delay + 100, showProgress);
 	}
 	if (D.url) {
 		if (D.message) {
 			setTimeout(function () {
 				window.location.href = D.url;
-			}, 2800);
+			}, delay);
 		} else {
 			window.location.href = D.url;
 		}
@@ -78,7 +81,7 @@ $(function () {
 		$pageBg.css('top', '-' + y + 'px');
 	});
 
-	$('#register-do').click(function (e) {
+	$('#go-register').click(function (e) {
 		e.stopPropagation();
 		e.preventDefault();
 		var $btn = $(this);
@@ -115,7 +118,7 @@ $(function () {
 			global: false,
 			success: function (D) {
 				unblockElem($btn);
-				simpleSuccessHandle(D);
+				simpleSuccessHandle(D, 2800, true);
 			},// success()
 			error: function (jqXHR, textStatus, errorThrown) {
 				unblockElem($btn);
@@ -125,5 +128,40 @@ $(function () {
 
 		return false;
 	});
-	
+
+	$('#go-auth').click(function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		var $btn = $(this);
+		$btn.blur();
+		if (!blockElem($btn)) return false;
+
+		var $form = $('#auth-form');
+
+		var data = {
+			login: $form.find('#login').val(),
+			password: MD5($form.find('#password').val()),
+		};
+
+		$.ajax({
+			async: true,	// не ждем завершения
+			type: $form.attr('method'),
+			url: $form.attr('action'),
+			dataType: 'json',
+			data: data,
+			cache: false,
+			global: false,
+			success: function (D) {
+				unblockElem($btn);
+				simpleSuccessHandle(D, 700);
+			},// success()
+			error: function (jqXHR, textStatus, errorThrown) {
+				unblockElem($btn);
+				showError(errorThrown.length ? errorThrown : 'Возникла ошибка, попробуйте повторить операцию позже!');
+			}// error()
+		});
+
+		return false;
+	});
+
 });

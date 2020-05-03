@@ -18,7 +18,7 @@
 					<ul class="navbar-nav">
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								User name
+								{{ \App\ExecutionContext::getUser() ? \App\ExecutionContext::getUser()->nameFormated() : 'N/A user' }}
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 								<a class="dropdown-item" href="/profile">Мой профиль</a>

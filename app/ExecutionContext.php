@@ -9,6 +9,9 @@ class ExecutionContext {
 	protected static $user = null;
 	protected static $navActive = null;
 
+	/**
+	 * @return User|null
+	 */
 	public static function getUser() {
 		if (static::$user === null) {
 			$userId = request()->session()->get('userId');
@@ -17,6 +20,9 @@ class ExecutionContext {
 		return static::$user;
 	}
 
+	/**
+	 * @return string
+	 */
 	public static function navActive() {
 		if (static::$navActive === null) {
 			if (request()->is(['/'])) {
@@ -39,6 +45,14 @@ class ExecutionContext {
 
 	public static function dropSessionUser() {
 		request()->session()->forget('userId');
+	}
+
+	public static function setLastLogin($login) {
+		request()->session()->put('lastLogin', (string)$login);
+	}
+
+	public static function getLastLogin() {
+		return request()->session()->get('lastLogin');
 	}
 
 }

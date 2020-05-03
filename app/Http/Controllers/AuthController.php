@@ -68,6 +68,8 @@ class AuthController extends Controller {
 			return $this->responseJsonError('Не удалось сохранить запись в БД. Попробуйте повторить операцию позже...');
 		}
 
+		ExecutionContext::setLastLogin($user->email);
+
 		return $this->responseJsonSuccessMessageURL('Спасибо за регистрацию!', '/');
 	}
 
@@ -76,8 +78,35 @@ class AuthController extends Controller {
 	}
 
 	public function login() {
-		dump('login');
-		ExecutionContext::setSessionUser(1);
+		$data = request()->all();
+
+		$validator = Validator::make($data, [
+			'login' => 'required', //|email:filter
+			'password' => 'required',
+		], [
+			'login.*' => 'Укажите Email, пожалуйста',
+			'password.*' => 'Укажите Пароль, пожалуйста',
+		]);
+
+		if ($validator->fails()) {
+			return $this->responseJsonError($validator->errors()->first());
+		}
+
+		$userRepo = new UserRepository();
+
+		$user = $userRepo->findByEmail($data['login']);
+		if (!$user) {
+			return $this->responseJsonError('Пользователь с указанным email\'ом не зарегистрирован. Пройдите регистрацию, пожалуйста');
+		}
+
+		if ($user->password !== md5($data['password'])) {
+			return $this->responseJsonError('Неправильный пароль');
+		}
+
+		ExecutionContext::setSessionUser($user);
+		ExecutionContext::setLastLogin($user->email);
+
+		return $this->responseJsonSuccessMessageURL('Добро пожаловать!', '/');
 	}
 
 	public function logout() {

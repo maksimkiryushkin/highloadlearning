@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * Class User
@@ -33,6 +34,11 @@ class User extends Model {
 	public function beforeSave() {
 		$this->email = mb_strtolower(trim($this->email));
 		return true;
+	}
+
+	public function nameFormated() {
+		$name = Str::ucfirst(mb_strtolower($this->first_name)).' '.Str::ucfirst(mb_strtolower($this->last_name));
+		return trim($name);
 	}
 
 }
