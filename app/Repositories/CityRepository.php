@@ -3,35 +3,28 @@
 namespace App\Repositories;
 
 use App\City;
+use DB;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class CityRepository implements Repository {
+/**
+ * @method City|null find($id)
+ * @method City[]|Collection search($conditions = [], $order = '', $limit = '', $offset = '')
+ * @method City|null save($entity)
+ */
+class CityRepository extends Repository {
 
-	/**
-	 * @param $id
-	 * @return City|null
-	 */
-	public function find($id) {
-		// TODO: Implement find() method.
-		return null;
+	public function __construct() {
+		parent::__construct(new City(), 'cities');
 	}
 
 	/**
-	 * @param array|string $conditions
-	 * @return Collection
-	 */
-	public function search($conditions) {
-		// TODO: Implement search() method.
-		return new Collection();
-	}
-
-	/**
-	 * @param City $entity
+	 * @param string $name
 	 * @return City|null
 	 */
-	public function save($entity) {
-		// TODO: Implement save() method.
-		return null;
+	public function findByName($name) {
+		$items = $this->search(['name' => trim($name)], null, 1);
+		return $items->isNotEmpty() ? $items->first() : null;
 	}
 
 }
