@@ -27,22 +27,12 @@
 				<div class="form-group row">
 					<label for="gender" class="col-sm-3 col-form-label">Пол</label>
 					<div class="col-sm-9">
-						<div class="custom-control custom-radio">
-							<input class="custom-control-input" type="radio" name="gender" id="gender-none" value="none"/>
-							<label class="custom-control-label" for="gender-none">Без указания пола</label>
-						</div>
-						<div class="custom-control custom-radio">
-							<input class="custom-control-input" type="radio" name="gender" id="gender-male" value="male"/>
-							<label class="custom-control-label" for="gender-male">Мужской</label>
-						</div>
-						<div class="custom-control custom-radio">
-							<input class="custom-control-input" type="radio" name="gender" id="gender-female" value="female"/>
-							<label class="custom-control-label" for="gender-female">Женский</label>
-						</div>
-						<div class="custom-control custom-radio">
-							<input class="custom-control-input" type="radio" name="gender" id="gender-other" value="other"/>
-							<label class="custom-control-label" for="gender-other">Другой</label>
-						</div>
+						@foreach(\App\User::GENDERS as $key => $val)
+							<div class="custom-control custom-radio">
+								<input class="custom-control-input" type="radio" name="gender" id="gender-{{ $key }}" value="{{ $key }}"/>
+								<label class="custom-control-label" for="gender-{{ $key }}">{{ $val }}</label>
+							</div>
+						@endforeach
 					</div>
 				</div>
 				<div class="form-group row">

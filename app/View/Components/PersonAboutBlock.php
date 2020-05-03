@@ -8,7 +8,9 @@ use Illuminate\View\Component;
 
 class PersonAboutBlock extends Component {
 
+	/** @var User */
 	public $person;
+
 	public $isMe;
 	public $isFriend;
 

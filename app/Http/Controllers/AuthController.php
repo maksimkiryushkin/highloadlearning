@@ -27,7 +27,7 @@ class AuthController extends Controller {
 			'name' => 'required|max:250',
 			'lastname' => 'required|max:250',
 			'birthday' => 'required|date', //|before_or_equal:-14 years
-			'gender' => 'required|in:none,male,female,other',
+			'gender' => 'required|in:'.implode(',', array_keys(User::GENDERS)),
 			'city' => 'required|min:2|max:250',
 			//'interests' => 'required',
 			'email' => 'required', //|email:filter
@@ -63,6 +63,7 @@ class AuthController extends Controller {
 		$user->birthday = $data['birthday'];
 		$user->city_id = 0;
 		$user->interests = $data['interests'] ?: '';
+		$user->setFooAvatar(false);
 
 		if (!$userRepo->save($user)) {
 			return $this->responseJsonError('Не удалось сохранить запись в БД. Попробуйте повторить операцию позже...');

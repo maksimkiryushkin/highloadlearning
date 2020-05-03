@@ -17,6 +17,7 @@ CREATE TABLE users (
 	`birthday` DATE NOT NULL DEFAULT CURRENT_DATE,
 	`city_id` INT NOT NULL DEFAULT 0,
 	`interests` TEXT NOT NULL DEFAULT '',
+	`avatar` TEXT NOT NULL DEFAULT '',
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
 
