@@ -81,17 +81,19 @@ $(function () {
 		$pageBg.css('top', '-' + y + 'px');
 	});
 
-	$('#go-register').click(function (e) {
+	$('#go-register, #save-profile').click(function (e) {
 		e.stopPropagation();
 		e.preventDefault();
 		var $btn = $(this);
 		$btn.blur();
 		if (!blockElem($btn)) return false;
 
-		var $form = $('#register-form');
+		var isRegister = $btn.is('#go-register');
+		var $form = isRegister ? $('#register-form') : $('#profile-form');
+		var isEmptyPassword = $form.find('#password').val().length <= 0;
 
 		// особая проверка на пустоту пароля, потому что сервер этого сделать не сможет
-		if ($form.find('#password').val().length <= 0) {
+		if (isRegister && isEmptyPassword) {
 			unblockElem($btn);
 			showError('Пожалуйста, задайте не пустой Пароль');
 			return false;
@@ -105,7 +107,7 @@ $(function () {
 			city: $form.find('#city').val(),
 			interests: $form.find('#interests').val(),
 			email: $form.find('#email').val(),
-			password: MD5($form.find('#password').val()),
+			password: isEmptyPassword ? '' : MD5($form.find('#password').val()),
 		};
 
 		$.ajax({

@@ -12,4 +12,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class City extends Model {
 
+	public $fillable = [
+		'name',
+	];
+
+	public function beforeSave() {
+		$this->name = trim($this->name);
+	}
+
 }

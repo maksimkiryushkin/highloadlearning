@@ -19,7 +19,7 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('/register', 'AuthController@register');
 	Route::post('/register', 'AuthController@doRegister');
 	Route::get('/profile', 'AuthController@profile');
-	Route::post('/profile', 'AuthController@updateProfile');
+	Route::put('/profile', 'AuthController@updateProfile');
 
 	Route::post('/login', 'AuthController@login');
 	Route::get('/logout', 'AuthController@logout');

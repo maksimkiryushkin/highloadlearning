@@ -30,7 +30,7 @@
         </div>
         <div>
             <span class="text-secondary font-weight-light">Город:</span>
-            {{ $person->city ? $person->city->name : 'N/A' }}
+            {{ $person->cityFormated() ?: 'N/A' }}
         </div>
         <div class="mt-3">
             {{ $person->interests }}

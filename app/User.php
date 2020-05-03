@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Repositories\CityRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -21,6 +22,7 @@ use Illuminate\Support\Str;
  */
 class User extends Model {
 
+	/** @var City */
 	public $city = null;
 
 	public $fillable = [
@@ -46,6 +48,11 @@ class User extends Model {
 		$this->email = mb_strtolower(trim($this->email));
 		if (empty($this->avatar)) $this->avatar = '/img/anonymous_any.png';
 		return true;
+	}
+
+	public function loadCity() {
+		$cityRepo = new CityRepository();
+		$this->city = $cityRepo->find($this->city_id);
 	}
 
 	/**
@@ -84,6 +91,11 @@ class User extends Model {
 	public function age() {
 		$birthday = convertAnyToCarbon($this->birthday);
 		return $birthday->diffInYears('now');
+	}
+
+	public function cityFormated() {
+		if (!$this->city) $this->loadCity();
+		return $this->city ? $this->city->name : '';
 	}
 
 	public function genderFormated() {
