@@ -60,6 +60,23 @@ class UserRepository extends Repository {
 	}
 
 	/**
+	 * @param User $user
+	 * @param int $limit
+	 * @return Collection|User[]
+	 */
+	public function mostActiveFriendsFor($user, $limit = 20) {
+		// берём $limit*4 больше записей с сортировкой по id, из них выбираем нужное количество уже случайно
+		$ids = DB::select("SELECT right_id FROM friends WHERE left_id=? AND right_id!=? ORDER BY id DESC LIMIT ?", [$user->id, $user->id, $limit * 4]);
+		$ids = array_map('intval', array_column($ids, 'right_id'));
+		shuffle($ids);
+		$ids = implode(',', array_slice($ids, 0, $limit));
+		$users = $this->search([
+			"id IN ($ids)",
+		], 'id DESC', $limit);
+		return $this->fillUsersWithCities($users);
+	}
+
+	/**
 	 * @param User|int $user
 	 * @param User|int $newFriend
 	 * @return bool

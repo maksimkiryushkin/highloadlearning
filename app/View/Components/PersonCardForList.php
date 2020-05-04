@@ -12,7 +12,7 @@ class PersonCardForList extends Component {
 	public $isSuggest;
 
 	public function __construct($person, $isSuggest) {
-		$this->person = $person;
+		$this->person = $person ?: new User();
 		$this->isSuggest = $isSuggest;
 	}
 

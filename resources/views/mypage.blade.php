@@ -19,14 +19,16 @@
 
 	<h3 class="mt-4 mb-3">Самые активные друзья</h3>
 
-	<div class="alert alert-info stext-center py-4 spx-5">
-		У вас нет друзей...
-	</div>
-
-	<div class="friends d-flex flex-row align-items-start flex-wrap">
-
-		<x-person-card-for-list :person="null" :isSuggest="false" />
-
-	</div>
+	@if($mostActiveFriends->isEmpty())
+		<div class="alert alert-info stext-center py-4 spx-5">
+			У вас нет друзей...
+		</div>
+	@else
+		<div class="friends d-flex flex-row align-items-start flex-wrap">
+			@foreach($mostActiveFriends as $person)
+				<x-person-card-for-list :person="$person" :isSuggest="false" />
+			@endforeach
+		</div>
+	@endif
 
 @endsection
