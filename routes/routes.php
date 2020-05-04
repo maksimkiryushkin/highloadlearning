@@ -25,10 +25,12 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('/logout', 'AuthController@logout');
 
 	Route::get('/', 'MainController@index')->name('home');
-	Route::get('/friends', 'FriendsController@index');
 	Route::get('/friend/{id}', 'FriendsController@friend');
 	Route::get('/person/{id}', 'FriendsController@person');
 
 	Route::put('/make/friendship/with/{id}', 'FriendsController@makeFriendship');
 	Route::put('/unfriend/with/{id}', 'FriendsController@unfriend');
+
+	Route::get('/friends', 'FriendsController@index');
+	Route::get('/friends/more/{page}', 'FriendsController@friendsMore');
 });

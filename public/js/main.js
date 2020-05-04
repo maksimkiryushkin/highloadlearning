@@ -81,6 +81,41 @@ $(function () {
 		$pageBg.css('top', '-' + y + 'px');
 	});
 
+	var friendsPage = 1;
+
+	$('#btn-load-more-friends').click(function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		var $btn = $(this);
+		$btn.blur();
+		if (!blockElem($btn)) return false;
+
+		$.ajax({
+			async: true,	// не ждем завершения
+			type: 'GET',
+			url: '/friends/more/'+(friendsPage + 1),
+			dataType: 'json',
+			cache: false,
+			global: false,
+			success: function (D) {
+				unblockElem($btn);
+				if (D.status !== 'success') {
+					showError(D.reason);
+					return;
+				}
+				$('#js-friends-container').append(D.items);
+				++friendsPage;
+				if (!D.hasMore) $btn.hide();
+			},// success()
+			error: function (jqXHR, textStatus, errorThrown) {
+				unblockElem($btn);
+				showError(errorThrown.length ? errorThrown : 'Возникла ошибка, попробуйте повторить операцию позже!');
+			}// error()
+		});
+
+		return false;
+	});
+
 	$('#btn-make-friendship').click(function (e) {
 		e.stopPropagation();
 		e.preventDefault();

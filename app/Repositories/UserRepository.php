@@ -80,7 +80,7 @@ class UserRepository extends Repository {
 	 * @param int $limit
 	 * @return Collection|User[]
 	 */
-	public function mostActiveFriendsFor($user, $limit = 20) {
+	public function mostActiveFriendsOf($user, $limit = 20) {
 		// берём $limit*4 больше записей с сортировкой по id, из них выбираем нужное количество уже случайно
 		$ids = DB::select("SELECT right_id FROM friends WHERE left_id=? AND right_id!=? ORDER BY id DESC LIMIT ?", [$user->id, $user->id, $limit * 4]);
 		$ids = array_map('intval', array_column($ids, 'right_id'));
@@ -90,6 +90,20 @@ class UserRepository extends Repository {
 		$users = $this->search([
 			"id IN ($ids)",
 		], 'id DESC', $limit);
+		return $this->fillUsersWithCities($users);
+	}
+
+	/**
+	 * @param User $user
+	 * @param int $offset
+	 * @param int $limit
+	 * @return Collection|User[]
+	 */
+	public function friendsOf($user, $offset = 0, $limit = 10) {
+		$users = $this->search([
+			"id != {$user->id}",
+			"id IN (SELECT right_id FROM friends WHERE left_id={$user->id})",
+		], 'id DESC', $limit, $offset);
 		return $this->fillUsersWithCities($users);
 	}
 

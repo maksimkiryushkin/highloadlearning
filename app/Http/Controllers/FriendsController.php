@@ -7,8 +7,28 @@ use App\Repositories\UserRepository;
 
 class FriendsController extends Controller {
 
+	const FRIENDS_ON_ONE_PAGE = 10;
+
 	public function index() {
-		return view('friends');
+		$userRepo = new UserRepository();
+		$friends = $userRepo->friendsOf(ExecutionContext::getUser(), 0, self::FRIENDS_ON_ONE_PAGE);
+		$hasMore = $friends->count() >= self::FRIENDS_ON_ONE_PAGE;
+
+		return view('friends', ['friends' => $friends, 'hasMore' => $hasMore]);
+	}
+
+	public function friendsMore($page) {
+		$offset = $page * self::FRIENDS_ON_ONE_PAGE;
+		$userRepo = new UserRepository();
+		$friends = $userRepo->friendsOf(ExecutionContext::getUser(), $offset, self::FRIENDS_ON_ONE_PAGE);
+		$hasMore = $friends->count() >= self::FRIENDS_ON_ONE_PAGE;
+
+		$items = view('friends-list', ['friends' => $friends]);
+
+		return $this->responseJsonSuccess([
+			'items' => (string)$items,
+			'hasMore' => $hasMore,
+		]);
 	}
 
 	public function friend($id) {

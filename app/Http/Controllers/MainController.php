@@ -15,7 +15,7 @@ class MainController extends Controller {
 
 		$userRepo = new UserRepository();
 		$suggestFriends = $userRepo->suggestFriendsFor($user);
-		$mostActiveFriends = $userRepo->mostActiveFriendsFor($user);
+		$mostActiveFriends = $userRepo->mostActiveFriendsOf($user);
 
 		return view('mypage', [
 			'user' => $user,
