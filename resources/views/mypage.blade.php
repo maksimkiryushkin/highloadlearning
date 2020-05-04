@@ -5,15 +5,17 @@
 
 	<h3 class="mb-3">Возможно, вы знаете этих людей → дружите!</h3>
 
-	<div class="alert alert-info stext-center py-4 spx-5">
-		Некого предложить в друзья. Извините, но вы совсем асоциальны...
-	</div>
-
-	<div class="friend-suggests d-flex flex-row flex-nowrap overflow-hidden p-1">
-
-		<x-person-card-for-list :person="null" :isSuggest="true" />
-
-	</div>
+	@if($suggestFriends->isEmpty())
+		<div class="alert alert-info stext-center py-4 spx-5">
+			Некого предложить в друзья. Извините, но вы совсем асоциальны...
+		</div>
+	@else
+		<div class="friend-suggests d-flex flex-row flex-nowrap overflow-hidden p-1">
+			@foreach($suggestFriends as $person)
+				<x-person-card-for-list :person="$person" :isSuggest="true" />
+			@endforeach
+		</div>
+	@endif
 
 	<h3 class="mt-4 mb-3">Самые активные друзья</h3>
 

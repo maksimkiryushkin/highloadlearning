@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ExecutionContext;
+use App\Repositories\UserRepository;
 
 class MainController extends Controller {
 
@@ -11,7 +12,11 @@ class MainController extends Controller {
 	 */
 	public function index() {
 		$user = ExecutionContext::getUser();
-		return view('mypage', ['user' => $user]);
+
+		$userRepo = new UserRepository();
+		$suggestFriends = $userRepo->suggestFriendsFor($user);
+
+		return view('mypage', ['user' => $user, 'suggestFriends' => $suggestFriends]);
 	}
 
 }

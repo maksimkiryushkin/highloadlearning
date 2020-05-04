@@ -3,8 +3,6 @@
 namespace App\Repositories;
 
 use App\City;
-use DB;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 /**

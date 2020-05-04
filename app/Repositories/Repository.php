@@ -35,6 +35,9 @@ class Repository {
 	 * @return Collection|null
 	 */
 	public function search($conditions = [], $order = null, $limit = null, $offset = null) {
+		if (!is_array($conditions) && !empty($conditions)) {
+			$conditions = [$conditions];
+		}
 		try {
 			$bindings = [];
 

@@ -2,10 +2,12 @@
 
 namespace App\View\Components;
 
+use App\User;
 use Illuminate\View\Component;
 
 class PersonCardForList extends Component {
 
+	/** @var User */
 	public $person;
 	public $isSuggest;
 
