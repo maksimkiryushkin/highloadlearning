@@ -28,4 +28,7 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('/friends', 'FriendsController@index');
 	Route::get('/friend/{id}', 'FriendsController@friend');
 	Route::get('/person/{id}', 'FriendsController@person');
+
+	Route::put('/make/friendship/with/{id}', 'FriendsController@makeFriendship');
+	Route::put('/unfriend/with/{id}', 'FriendsController@unfriend');
 });

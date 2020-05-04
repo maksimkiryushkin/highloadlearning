@@ -7,7 +7,11 @@
 
 	@if($suggestFriends->isEmpty())
 		<div class="alert alert-info stext-center py-4 spx-5">
-			Упс! У человека нет друзей...
+			@if($isFriend)
+				Упс! У человека нет друзей, кроме вас...
+			@else
+				Упс! У человека нет друзей...
+			@endif
 		</div>
 	@else
 		<div class="friend-suggests d-flex flex-row flex-nowrap overflow-hidden p-1">

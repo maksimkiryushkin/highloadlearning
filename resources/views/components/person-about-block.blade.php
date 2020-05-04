@@ -9,11 +9,25 @@
             {{--no buttons yet--}}
         @elseif($isFriend)
             <div class="mt-4">
-                <button type="button" class="btn btn-warning">Перестать дружить</button>
+                <button type="button"
+                        class="btn btn-warning ld-ext-right"
+                        id="btn-unfriend"
+                        data-person="{!! $person->id !!}"
+                >
+                    Перестать дружить
+                    <div class="ld ld-ring ld-spin-fast"></div>
+                </button>
             </div>
         @else
             <div class="mt-4">
-                <button type="button" class="btn btn-success">Подружиться</button>
+                <button type="button"
+                        class="btn btn-success ld-ext-right"
+                        id="btn-make-friendship"
+                        data-person="{!! $person->id !!}"
+                >
+                    Подружиться
+                    <div class="ld ld-ring ld-spin-fast"></div>
+                </button>
             </div>
         @endif
     </div>

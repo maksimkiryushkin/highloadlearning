@@ -81,6 +81,60 @@ $(function () {
 		$pageBg.css('top', '-' + y + 'px');
 	});
 
+	$('#btn-make-friendship').click(function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		var $btn = $(this);
+		$btn.blur();
+		if (!blockElem($btn)) return false;
+
+		$.ajax({
+			async: true,	// не ждем завершения
+			type: 'PUT',
+			url: '/make/friendship/with/'+$btn.data('person'),
+			dataType: 'json',
+			cache: false,
+			global: false,
+			success: function (D) {
+				unblockElem($btn);
+				simpleSuccessHandle(D, 800);
+			},// success()
+			error: function (jqXHR, textStatus, errorThrown) {
+				unblockElem($btn);
+				showError(errorThrown.length ? errorThrown : 'Возникла ошибка, попробуйте повторить операцию позже!');
+			}// error()
+		});
+
+		return false;
+	});
+
+	$('#btn-unfriend').click(function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		var $btn = $(this);
+		$btn.blur();
+		if (!blockElem($btn)) return false;
+
+		$.ajax({
+			async: true,	// не ждем завершения
+			type: 'PUT',
+			url: '/unfriend/with/'+$btn.data('person'),
+			dataType: 'json',
+			cache: false,
+			global: false,
+			success: function (D) {
+				unblockElem($btn);
+				simpleSuccessHandle(D, 800);
+			},// success()
+			error: function (jqXHR, textStatus, errorThrown) {
+				unblockElem($btn);
+				showError(errorThrown.length ? errorThrown : 'Возникла ошибка, попробуйте повторить операцию позже!');
+			}// error()
+		});
+
+		return false;
+	});
+
 	$('#go-register, #save-profile').click(function (e) {
 		e.stopPropagation();
 		e.preventDefault();

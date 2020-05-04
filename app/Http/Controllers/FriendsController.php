@@ -45,4 +45,28 @@ class FriendsController extends Controller {
 		]);
 	}
 
+	public function makeFriendship($id) {
+		$userRepo = new UserRepository();
+		$person = $userRepo->find($id);
+		if (!$person) return $this->responseJsonError('Указан какой-то ненастоящий человек. Попробуйте обновить страницу и повторить действие');
+
+		if (!$userRepo->addFriendFor(ExecutionContext::getUser(), $person)) {
+			return $this->responseJsonError('Не удалось сохранить запись в БД. Попробуйте повторить операцию позже...');
+		}
+
+		return $this->responseJsonSuccessMessageURL('Подружились!', "/friend/{$person->id}");
+	}
+
+	public function unfriend($id) {
+		$userRepo = new UserRepository();
+		$person = $userRepo->find($id);
+		if (!$person) return $this->responseJsonError('Указан какой-то ненастоящий человек. Попробуйте обновить страницу и повторить действие');
+
+		if (!$userRepo->removeFriendFor(ExecutionContext::getUser(), $person)) {
+			return $this->responseJsonError('Не удалось сохранить изменения в БД. Попробуйте повторить операцию позже...');
+		}
+
+		return $this->responseJsonSuccessMessageURL('Больше не друзья!', "/person/{$person->id}");
+	}
+
 }
