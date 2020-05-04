@@ -61,6 +61,22 @@ class UserRepository extends Repository {
 
 	/**
 	 * @param User $user
+	 * @param User $person
+	 * @param int $limit
+	 * @return Collection|User[]
+	 */
+	public function suggestFriendsOfPersonFor($user, $person, $limit = 7) {
+		$users = $this->search([
+			"id != {$user->id}",
+			"id != {$person->id}",
+			"id NOT IN (SELECT right_id FROM friends WHERE left_id={$user->id})",
+			"id IN (SELECT right_id FROM friends WHERE left_id={$person->id})",
+		], 'id DESC', $limit);
+		return $this->fillUsersWithCities($users);
+	}
+
+	/**
+	 * @param User $user
 	 * @param int $limit
 	 * @return Collection|User[]
 	 */
@@ -70,6 +86,7 @@ class UserRepository extends Repository {
 		$ids = array_map('intval', array_column($ids, 'right_id'));
 		shuffle($ids);
 		$ids = implode(',', array_slice($ids, 0, $limit));
+		if (!$ids) $ids = '0';
 		$users = $this->search([
 			"id IN ($ids)",
 		], 'id DESC', $limit);
@@ -130,6 +147,27 @@ class UserRepository extends Repository {
 		}
 
 		return true;
+	}
+
+	/**
+	 * @param User|int $user
+	 * @param User|int $testFriend
+	 * @return bool
+	 */
+	public function isFriendOf($user, $testFriend) {
+		$leftId = ($user instanceof User) ? $user->id : (int)$user;
+		$rightId = ($testFriend instanceof User) ? $testFriend->id : (int)$testFriend;
+
+		try {
+			$exists = DB::select("SELECT id FROM friends WHERE left_id={$leftId} AND right_id={$rightId} LIMIT 1");
+			if (count($exists)) return true; // есть запись
+
+		} catch (\Throwable $e) {
+			\Log::error($e->getMessage(), [__FILE__, __LINE__, $e->getFile(), $e->getLine()]);
+			return false;
+		}
+
+		return false;
 	}
 
 }

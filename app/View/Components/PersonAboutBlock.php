@@ -21,8 +21,8 @@ class PersonAboutBlock extends Component {
 	public function __construct($person, $isFriend = false) {
 		$me = ExecutionContext::getUser();
 
-		$this->person = $person;
-		$this->isMe = $me && ($person->id == $me->id);
+		$this->person = $person ?: new User();
+		$this->isMe = $me && ($this->person->id == $me->id);
 		$this->isFriend = (bool)$isFriend;
 	}
 
