@@ -6,6 +6,8 @@ use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 
+// TODO: не правильно, потому что данные будут получены раньше, чем сработает seeder по городам
+// нужно переписать так, чтобы кэш был, но города были получены при первом обращении к factory
 $cityIds = DB::select('SELECT id FROM cities');
 $cityIds = array_column($cityIds, 'id');
 
