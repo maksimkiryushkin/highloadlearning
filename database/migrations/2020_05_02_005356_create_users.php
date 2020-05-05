@@ -16,7 +16,7 @@ CREATE TABLE users (
 	`gender` ENUM('none','male','female','other') NOT NULL DEFAULT 'none',
 	`birthday` DATE NOT NULL DEFAULT '1900-01-01',
 	`city_id` INT NOT NULL DEFAULT 0,
-	`interests` TEXT NOT NULL DEFAULT '',
+	`interests` TEXT,
 	`avatar` TEXT NOT NULL DEFAULT '',
 	PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
