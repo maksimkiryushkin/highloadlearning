@@ -7,7 +7,7 @@ class DatabaseSeeder extends Seeder {
 	public function run() {
 		$this->call(CitySeeder::class);
 		$this->call(UserSeeder::class);
-//		$this->call(MakeFriends::class);
+		$this->call(MakeFriends::class);
 	}
 
 }

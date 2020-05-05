@@ -11,7 +11,7 @@ class CitySeeder extends Seeder {
 		$cityCount = $cityCount->count ?: 0;
 
 		$cityRepo = new CityRepository();
-		factory(City::class, 10 - $cityCount)->make()->each(function ($city) use ($cityRepo) {
+		factory(City::class, 30 - $cityCount)->make()->each(function ($city) use ($cityRepo) {
 			$cityRepo->save($city);
 		});
 	}

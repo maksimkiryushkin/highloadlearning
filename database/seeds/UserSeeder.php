@@ -11,7 +11,7 @@ class UserSeeder extends Seeder {
 		$userCount = $userCount->count ?: 0;
 
 		$userRepo = new UserRepository();
-		factory(User::class, 10 - $userCount)->make()->each(function ($user) use ($userRepo) {
+		factory(User::class, 100 - $userCount)->make()->each(function ($user) use ($userRepo) {
 			/** @var User $user */
 			$user->setFooAvatar();
 			$userRepo->save($user);
