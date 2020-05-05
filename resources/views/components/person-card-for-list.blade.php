@@ -23,10 +23,10 @@
             <h5 class="title">{{ $person->nameFormated() }}</h5>
         @endif
         <div class="text {!! $aboutClasses !!}">
-            {{ Str::limit($person->interests, 100) }}
+            {{ Str::limit($person->interests, $isSuggest ? 95 : 140) }}
         </div>
         <div class="text">
-            <small class="text-muted">
+            <small class="text-info" style="opacity: 0.8;">
                 {{ $person->cityFormated() ?: 'No city' }} : {{ $person->age() }} {{ pluralForm($person->age(), ['год', 'года', 'лет']) }}
             </small>
         </div>

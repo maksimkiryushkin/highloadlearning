@@ -55,6 +55,9 @@ class User extends Model {
 		$this->city = $cityRepo->find($this->city_id);
 	}
 
+	private static $_maleAvatars = null;
+	private static $_femaleAvatars = null;
+
 	/**
 	 * Выставляет аватарку по полу. Если указано $random=true, тогда берёт случайную
 	 * заготовленную заранее картинку, её и выставляет.
@@ -66,17 +69,27 @@ class User extends Model {
 			$this->avatar = '/img/anonymous_any.png';
 
 		} elseif ($random) {
-			if ($this->gender == 'male') {
-				$files = \File::glob(public_path('img/male/*'));
-			} else { // female
-				$files = \File::glob(public_path('img/female/*'));
-			}
-			$publicDirPathLength = mb_strlen(public_path());
-			$files = array_map(function ($path) use ($publicDirPathLength) {
-				return mb_substr($path, $publicDirPathLength);
-			}, $files);
+			if (!self::$_maleAvatars && !self::$_femaleAvatars) srand(time());
 
-			srand(time());
+			$publicDirPathLength = mb_strlen(public_path());
+			if ($this->gender == 'male') {
+				if (!self::$_maleAvatars) {
+					self::$_maleAvatars = \File::glob(public_path('img/male/*'));
+					self::$_maleAvatars = array_map(function ($path) use ($publicDirPathLength) {
+						return mb_substr($path, $publicDirPathLength);
+					}, self::$_maleAvatars);
+				}
+				$files = self::$_maleAvatars;
+			} else { // female
+				if (!self::$_femaleAvatars) {
+					self::$_femaleAvatars = \File::glob(public_path('img/female/*'));
+					self::$_femaleAvatars = array_map(function ($path) use ($publicDirPathLength) {
+						return mb_substr($path, $publicDirPathLength);
+					}, self::$_femaleAvatars);
+				}
+				$files = self::$_femaleAvatars;
+			}
+
 			$index = rand(0, count($files) - 1);
 			$this->avatar = $files[$index];
 

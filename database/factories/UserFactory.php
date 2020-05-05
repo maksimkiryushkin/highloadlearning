@@ -5,25 +5,23 @@
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
-use Illuminate\Support\Str;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
-*/
+$cityIds = DB::select('SELECT id FROM cities');
+$cityIds = array_column($cityIds, 'id');
 
-$factory->define(User::class, function (Faker $faker) {
+$enFaker = \Faker\Factory::create('en_US');
+
+$factory->define(User::class, function (Faker $faker) use ($cityIds, $enFaker) {
+	$gender = ($faker->randomDigit % 2) ? 'male' : 'female';
 	return [
-		'name' => $faker->name,
+		'first_name' => $faker->firstName($gender),
+		'last_name' => $faker->lastName,
 		'email' => $faker->unique()->safeEmail,
-		'email_verified_at' => now(),
-		'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-		'remember_token' => Str::random(10),
+		'password' => md5(md5($faker->randomNumber(5))),
+		'gender' => $gender,
+		'birthday' => $faker->dateTimeBetween('-42 years', '-20 years')->format('Y-m-d'),
+		'city_id' => $faker->randomElement($cityIds),
+		'interests' => $enFaker->realText(300, 3),
+		'avatar' => '', // will be replaced in seeder
 	];
 });
