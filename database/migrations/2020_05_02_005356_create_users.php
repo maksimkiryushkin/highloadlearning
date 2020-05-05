@@ -14,7 +14,7 @@ CREATE TABLE users (
 	`email` VARCHAR(255) NOT NULL DEFAULT '',
 	`password` VARCHAR(255) NOT NULL DEFAULT '',
 	`gender` ENUM('none','male','female','other') NOT NULL DEFAULT 'none',
-	`birthday` DATE NOT NULL DEFAULT CURRENT_DATE,
+	`birthday` DATE NOT NULL DEFAULT '1900-01-01',
 	`city_id` INT NOT NULL DEFAULT 0,
 	`interests` TEXT NOT NULL DEFAULT '',
 	`avatar` TEXT NOT NULL DEFAULT '',
